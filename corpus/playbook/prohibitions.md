@@ -69,3 +69,9 @@ Recorded here so they don't leak into output as if verified:
 | Josh Braun's "35% cold email response rate" | Article body was CAPTCHA-blocked; the conditions behind it are unknown |
 | Outbound Squad's "23.9% average open rate for a cold call" | Wording is incoherent (open rate is an email metric) and context was inaccessible |
 | Lavender's "6% reply rate is worse than 4%" | Genuinely interesting but the explanation was never read |
+
+## Platform policy (overrides message quality)
+
+| Prohibition | Source | Stated reason |
+|---|---|---|
+| Do not generate cold WhatsApp outreach without flagging the policy violation | whatsappbusiness.com/policy (read 2026-08-22) | "You may only contact people on WhatsApp if... you have received opt-in permission." Cold sending risks messaging limits and permanent ban of the number and organization. See `channel-porting.md` §E for the three compliant paths. |

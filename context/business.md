@@ -1,7 +1,11 @@
 ---
 updated: 2026-08-22
-status: AWAITING USER INPUT — nothing below is filled in
+status: PARTIAL — structural answers recorded; product/buyer/pain still needed
 ---
+
+> **STILL BLOCKING the DM template** (see §1, §2, §3, §7):
+> what you sell · who you sell to · the pain · a sample of your own writing.
+> Everything else below is answered.
 
 # Business context
 
@@ -16,14 +20,14 @@ status: AWAITING USER INPUT — nothing below is filled in
 
 ## 0. The deliverable ⭐
 - **Asset wanted:** sales DM template
-- **Platform:** <LinkedIn / Instagram / X / WhatsApp / Facebook / other>
-- **DM type:** <cold, no prior contact | after they engaged with my content | connection request + follow-up | warm intro>
-- **What counts as success:** <a reply | a booked call | a link click | a sale in-thread>
+- **Platform:** **WhatsApp / Facebook** ✔
+- **DM type:** **Fully cold** — no prior contact ✔
+- **What counts as success:** ? <a reply | a booked call | a link click | a sale in-thread>
 
 ## 1. What you sell ⭐
 - **Product/service:**
 - **In one sentence, what it does for the buyer:**
-- **Price point:** ⭐ <this decides research-depth vs. volume — see corpus/playbook/conflicts.md>
+- **Price point:** **Under $500** ✔ → resolves to the VOLUME side of the research-vs-volume conflict (see corpus/playbook/conflicts.md)
 - **Pricing model:** <one-off | retainer | subscription | commission>
 - **Delivery time / onboarding:**
 
@@ -55,9 +59,9 @@ status: AWAITING USER INPUT — nothing below is filled in
 - **Where a competitor genuinely beats you:**
 
 ## 6. The sales motion ⭐
-- **Channel:** DM
-- **Who does the selling:** ⭐ <you personally | a rep | a team> — this plus price point resolves the research-vs-volume conflict
-- **How many DMs can you realistically send per day:** ⭐
+- **Channel:** DM — WhatsApp / Facebook, fully cold ✔
+- **Who does the selling:** **A rep or small team** ✔ → template must be executable by someone without your judgement; personalization slots must be mechanical, not intuitive
+- **How many DMs can you realistically send per day:** ?
 - **What happens after a reply:** <call | more DMs | send a link>
 - **Number of touches to close:**
 - **Current reply rate (if known):**
