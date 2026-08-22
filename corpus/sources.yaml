@@ -1,0 +1,15 @@
+# The reading list. Add resources here (or just name them in chat and the
+# ingest skill will add them for you).
+#
+# status: requested | located | ingested | partial | unavailable
+#
+# Example:
+# - name: "Example Sales Course"
+#   author: "Author Name"
+#   status: requested
+#   note: null
+#   url: null
+#   coverage: null
+#   comment: ""
+
+sources: []
