@@ -64,3 +64,78 @@ supply.
   matching the user's business to the right side is most of this system's value.
 - Corpus notes are the product. Generated assets are disposable and can be
   regenerated; a well-extracted note cannot be cheaply rebuilt.
+
+## Browsing the web
+
+A real browser is available and starts automatically. The owner is not a
+developer and works from a phone — do the browser work and report what
+happened rather than explaining how to do it.
+
+`.claude/hooks/session-start.sh` runs at session start and installs the
+`browser-use` CLI on Python 3.12, registers its skill, launches headless
+Chromium with remote debugging on `127.0.0.1:9222`, and exports
+`BU_CDP_URL`. It should just work; do not re-install it.
+
+This serves rule 1: it fetches pages that plain `WebFetch` cannot read, so a
+note can be written from something actually read. It does **not** relax the
+access boundary above — no paywall circumvention, no DRM, no pirated copies.
+A page a browser can technically render is not thereby permitted material.
+
+### The working recipe
+
+```bash
+browser-use <<'PY'
+ensure_real_tab()
+goto_url("https://example.com")
+wait_for_load()
+print(page_info())
+print(js("document.body.innerText")[:500])
+PY
+```
+
+Filling a form is the same shape, with `fill_input("input[name=x]", "value")`
+and `press_key("Enter")`.
+
+Four rules decide whether this works:
+
+- **Always `wait_for_load()` after navigating.** Calling `page_info()` straight
+  after a navigation raises `TypeError: Cannot read properties of null (reading
+  'scrollWidth')` because the new document does not exist yet. Add `wait(2)` for
+  pages that render client-side.
+- **There is no `get_text()`.** Calling a helper that does not exist makes the
+  CLI print its help text instead of running the script, which reads like a
+  crash. Use `js("document.body.innerText")`; `browser-use skill show` lists the
+  real helpers.
+- **Prefer `ensure_real_tab()` + `goto_url()` over repeated `new_tab()`**, which
+  leaves the daemon attached to an orphaned tab.
+- **A `TimeoutError` from `_ipc.py` on the first call after a daemon start is
+  normal.** The action usually still happened — re-run it.
+
+When it hangs or the `scrollWidth` error repeats, the daemon is on a dead tab:
+run `browser-use --reload`, then `ensure_real_tab()`. `browser-use --doctor`
+shows what is alive. Logs: `/tmp/browser-use-setup.log`,
+`/tmp/browser-use-chrome.log`.
+
+### Do not change the TLS setting
+
+`scripts/launch-chrome-cdp.sh` passes `--ssl-version-max=tls1.2` because the
+session's egress proxy resets Chromium's TLS 1.3 ClientHello, breaking every
+HTTPS page. It caps the version only and leaves certificate verification on —
+never substitute `--ignore-certificate-errors`. See
+`docs/browser-use-setup.md` for what else was tried.
+
+Beware `pkill -f` with a pattern matching this repo's paths: it can match the
+shell running it and kill the tool call (exit 144). Use `pkill -f "chrom[i]um"`
+and keep the literal browser path out of that same command.
+
+### The browser has no memory
+
+It is a fresh, signed-out Chromium, discarded when the session ends — no
+logins, no cookies, no extensions. A task needing an account requires signing
+in during that session. Say so plainly rather than guessing, and never store
+passwords in this repo.
+
+CAPTCHAs, SMS and email verification codes, and sites that block data-centre
+IPs will not work here; say so outright instead of working around them.
+Automated signups hit all three and may breach a site's terms — ask before
+assuming one is wanted.
