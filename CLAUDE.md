@@ -5,6 +5,14 @@ set of sales resources because general LLM training blends good sales advice
 with bad. Everything here exists to make output traceable to those chosen
 sources instead of to training-data averages.
 
+## How to talk to the user
+
+The user is not a developer and does not want mechanism explained. Follow the
+communication rules in the file below for every explanation, summary, and error
+report in this repo.
+
+@explain-simply/CLAUDE-snippet.md
+
 ## The three rules
 
 **1. Notes come from reading, not from memory.**
