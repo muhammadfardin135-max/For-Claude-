@@ -23,6 +23,38 @@ allowed but must be rare, flagged, and justified.
 stage" are correct answers. Filling a gap with plausible general sales advice
 silently defeats the entire system.
 
+## The three rules also govern claims about this repo
+
+Rule 1 says notes come from reading, not from memory. The same standard applies
+to any statement about how this project, its tooling, or its environment
+behaves: it comes from checking, not from expectation. Three failures here came
+from ignoring that, and every one of them looked verified at the time.
+
+**Never record a cause without testing its absence.** The agent proxy CA was
+documented as required because HTTPS started working once it was imported.
+Removing it and retesting showed pages load fine without it — the certificate
+errors had come from unrelated background requests. *"It worked after I did X"*
+is not evidence that X was needed. Take X away and retest before writing it
+down.
+
+**A test that resembles the real conditions has not tested them.** The
+session-start hook passed when run from an interactive shell, then silently
+failed when the harness ran it for real — a hook runs as a process-group
+leader, and the shell test did not. Reproduce the actual invocation, not the
+convenient approximation, before calling something validated.
+
+**Never write a prediction as a fact, and never let an instruction depend on
+one.** This file once asserted that `browser-use` "should just work" and told
+the reader not to re-install it. When the hook did not fire, that sentence
+blocked the one action that would have fixed it. Anything about future state is
+a claim to be checked at the time — so write the check, and a fallback for when
+it fails.
+
+**Report observation and inference in different voices.** "Verified from cold:
+6 seconds" and "should be fine next session" are different kinds of statement
+and must never be delivered in the same tone. An untested claim is labelled
+untested, or left out. That is rule 3 again: gaps stay visible.
+
 ## Access boundary
 
 Public, free, and officially released material — or files the user supplies
