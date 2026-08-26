@@ -28,11 +28,16 @@ fi
 browser-use skill install >>"$LOG" 2>&1 || true
 
 # 3. Start headless Chromium with remote debugging, unless it is already up.
-#    setsid detaches it so it outlives this hook.
+#
+#    `setsid --fork` is required, not plain `setsid`. This hook already runs as
+#    a process-group leader, and in that case setsid does NOT fork — it execs in
+#    place, so the browser stays inside the hook's process group and is reaped
+#    the moment the hook returns. The symptom is a silent failure: an empty
+#    /tmp/browser-use-chrome.log and nothing listening on 9222. --fork forces a
+#    real detach so the browser outlives the hook.
 if ! curl -sf --noproxy '*' http://127.0.0.1:9222/json/version >/dev/null 2>&1; then
-  setsid nohup "$CLAUDE_PROJECT_DIR/scripts/launch-chrome-cdp.sh" \
-    >/tmp/browser-use-chrome.log 2>&1 < /dev/null &
-  disown || true
+  setsid --fork nohup "$CLAUDE_PROJECT_DIR/scripts/launch-chrome-cdp.sh" \
+    >/tmp/browser-use-chrome.log 2>&1 < /dev/null || true
   for _ in $(seq 1 30); do
     curl -sf --noproxy '*' http://127.0.0.1:9222/json/version >/dev/null 2>&1 && break
     sleep 1

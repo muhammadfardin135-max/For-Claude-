@@ -116,6 +116,18 @@ run `browser-use --reload`, then `ensure_real_tab()`. `browser-use --doctor`
 shows what is alive. Logs: `/tmp/browser-use-setup.log`,
 `/tmp/browser-use-chrome.log`.
 
+If the browser itself is not running, start it with `setsid --fork` — plain
+`setsid` will not survive, because a caller that is already a process-group
+leader makes setsid exec in place instead of forking:
+
+```bash
+setsid --fork nohup ./scripts/launch-chrome-cdp.sh \
+  >/tmp/browser-use-chrome.log 2>&1 </dev/null
+```
+
+An empty `/tmp/browser-use-chrome.log` plus nothing on port 9222 is that exact
+failure — the browser was reaped before it wrote a line.
+
 ### Do not change the TLS setting
 
 `scripts/launch-chrome-cdp.sh` passes `--ssl-version-max=tls1.2` because the
