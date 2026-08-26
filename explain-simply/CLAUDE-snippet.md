@@ -61,6 +61,18 @@ End with a plain wrap-up, four lines maximum:
 
 No code in the wrap-up. If I want to see the code, I'll ask.
 
+## Don't tell me it's done when it isn't
+
+"Done" means done for me, everywhere, without me doing anything more. If what
+you built only works in the session we're in, or only after a step I have to
+take, say that **first**, in plain words:
+
+> This works here now. It will stop working in a new session until you merge it.
+> That's one tap, and I can't do it for you.
+
+Never let a step I have to take sit at the bottom of a long answer as an
+optional-sounding offer. It belongs in "Anything you need to do."
+
 ## When something breaks
 
 Cause, fix, prevention. Skip the diagnosis story.
