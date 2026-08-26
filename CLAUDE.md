@@ -35,7 +35,7 @@ silently defeats the entire system.
 
 Rule 1 says notes come from reading, not from memory. The same standard applies
 to any statement about how this project, its tooling, or its environment
-behaves: it comes from checking, not from expectation. Three failures here came
+behaves: it comes from checking, not from expectation. Four failures here came
 from ignoring that, and every one of them looked verified at the time.
 
 **Never record a cause without testing its absence.** The agent proxy CA was
@@ -62,6 +62,23 @@ it fails.
 6 seconds" and "should be fine next session" are different kinds of statement
 and must never be delivered in the same tone. An untested claim is labelled
 untested, or left out. That is rule 3 again: gaps stay visible.
+
+**Never call work done at the edge of your own actions.** The explain-simply
+setup was reported as "already wired up" because the files were written,
+committed and pushed — every action available had succeeded. It changed nothing
+for the user: the branch was unmerged, so the next session would still read the
+old file. Completion is measured at the user's next session, not at the agent's
+last command. This container is discarded and an unmerged branch is invisible to
+every session that follows, so state where the work is live, where it is not,
+and what the user must do to close the gap — before saying done.
+
+**A step the user must take is never phrased as an offer.** The merge was
+mentioned, last, as "say the word if you want one", and so read as optional.
+That is worse than omitting it: it looks like the user was told. Requirements
+are stated as requirements, up front. The same failure in other clothes —
+"installed" for something living only in this container, "connected" for a
+session-scoped connection, "passing" for tests run only here — is the same
+root: reporting the agent's workspace as the user's world.
 
 ## Access boundary
 
