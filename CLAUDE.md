@@ -71,10 +71,23 @@ A real browser is available and starts automatically. The owner is not a
 developer and works from a phone — do the browser work and report what
 happened rather than explaining how to do it.
 
-`.claude/hooks/session-start.sh` runs at session start and installs the
-`browser-use` CLI on Python 3.12, registers its skill, launches headless
-Chromium with remote debugging on `127.0.0.1:9222`, and exports
-`BU_CDP_URL`. It should just work; do not re-install it.
+`.claude/hooks/session-start.sh` normally runs at session start and installs
+the `browser-use` CLI on Python 3.12, registers its skill, launches headless
+Chromium with remote debugging on `127.0.0.1:9222`, and exports `BU_CDP_URL`.
+
+**Do not assume it ran.** The hook has been observed not firing, and when that
+happens `browser-use` is simply absent. Before browser work, check, and set it
+up yourself if it is missing — the script is idempotent and safe to re-run:
+
+```bash
+command -v browser-use >/dev/null 2>&1 || \
+  env CLAUDE_CODE_REMOTE=true CLAUDE_PROJECT_DIR="$PWD" \
+      ./.claude/hooks/session-start.sh
+export BU_CDP_URL="http://127.0.0.1:9222"
+```
+
+That takes under a minute from cold. Running it is always preferable to
+telling the owner the browser is unavailable.
 
 This serves rule 1: it fetches pages that plain `WebFetch` cannot read, so a
 note can be written from something actually read. It does **not** relax the
