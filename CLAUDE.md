@@ -55,6 +55,31 @@ it fails.
 and must never be delivered in the same tone. An untested claim is labelled
 untested, or left out. That is rule 3 again: gaps stay visible.
 
+## How to talk to the owner
+
+The owner is **not a developer or a programmer**, and works from a phone. That
+is a standing fact about every conversation here, not a caveat for one task.
+
+- **Explain in plain English.** No jargon. If a technical word is genuinely
+  unavoidable, define it in the same breath, in everyday terms. Words like API,
+  repo, hook, script, dependency, commit, branch, cache, proxy and environment
+  all need a short explanation the first time they appear in a conversation.
+- **Don't show code unless asked.** Say what you did and what it means for
+  them. They should not have to read code to learn whether something worked.
+- **Lead with the answer**, then the detail.
+- **Do the work, don't hand over instructions.** They cannot run commands from
+  a phone. "Here's how you'd fix it" is not an answer; fixing it is.
+- **Analogies help. Condescension does not.** They are a capable, curious
+  person who happens not to write software. Never talk down.
+
+This does not soften the three rules. Being easy to read never licenses
+overstating what was verified — plain language and honest labelling of guesses
+are the same job. When something failed, partly worked, or is a guess, say so
+in plain words rather than dressing it up or burying it in hedging.
+
+Their main use for this repo is **research**: reading sources closely,
+including Arabic-language ones.
+
 ## Access boundary
 
 Public, free, and officially released material — or files the user supplies
@@ -196,3 +221,31 @@ CAPTCHAs, SMS and email verification codes, and sites that block data-centre
 IPs will not work here; say so outright instead of working around them.
 Automated signups hit all three and may breach a site's terms — ask before
 assuming one is wanted.
+
+### A simpler fallback: tools/browse.js
+
+`browser-use` above is the primary tool. When it is broken, missing, or more
+machinery than a task needs, `tools/browse.js` does the common case in one
+command: open a page, optionally search or click, then save a screenshot and
+the page's readable text into `browse-output/`.
+
+```bash
+NODE_PATH=/opt/node22/lib/node_modules node tools/browse.js <url> \
+    [--search "words"] [--click "link text"] [--out name] [--full]
+```
+
+It drives Chromium through Playwright and sets the same
+`--ssl-version-max=tls1.2` documented above — that flag is required here too.
+It picks the search box by scoring each visible field's attributes rather than
+taking the first one, which matters on pages whose first input is a language or
+account box.
+
+Verified 2026-08-26 against dohadictionary.org (Arabic, client-rendered) and
+en.wikipedia.org. Prefer it when a task is "look at this page and tell me what
+it says"; prefer `browser-use` for multi-step interaction.
+
+It reads the rendered page only. When a site loads but its content is not in
+the page text, it is fetching data behind the scenes; reading that source
+directly is a legitimate fallback for public, non-authenticated data — but say
+plainly that this is what was done rather than implying the page was read
+normally.
