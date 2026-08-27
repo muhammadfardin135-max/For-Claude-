@@ -5,13 +5,7 @@
       "WebFetch",
       "Read",
       "Glob",
-      "Grep",
-      "Write(corpus/**)",
-      "Write(context/**)",
-      "Write(output/**)",
-      "Edit(corpus/**)",
-      "Edit(context/**)",
-      "Edit(output/**)"
+      "Grep"
     ]
   },
   "hooks": {

@@ -1,6 +1,1 @@
-# User-supplied source material — often copyrighted books/courses the user
-# owns. Kept local, not published to the repo.
-corpus/raw/*
-!corpus/raw/README.md
-
 .DS_Store
