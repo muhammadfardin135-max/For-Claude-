@@ -1,1 +1,5 @@
 .DS_Store
+
+# Screenshots and page text saved by tools/browse.js
+browse-output/
+node_modules/
